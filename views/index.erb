@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <body>
+    <h1><%= @title %></title>
+    <ul>
+      <% @list.each do |e| %>
+      <li><a href="<%= e %>"><%= e %></a></li>
+      <% end %>
+    </ul>
+  </body>
+</html>

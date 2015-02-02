@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <script src="/scripts/jquery.min.js"></script>
+  <script src="/scripts/d3.v3.min.js"></script>
+  <script src="/scripts/d3pie.js"></script>
+  <script src="/scripts/canvg.js"></script>
+<section>
+  <title><%= @title %></title>
+  <body>
+    <div id="pieChart"></div>
+    <canvas id="buffer"></canvas>
+    <form id="form" method="POST" action="/<%=params[:client]%>/<%=params[:entry]%>/<%=params[:subentry]%>/<%=@data_name%>">
+      <input type="hidden" name="png_data"/>     
+    </form>
+    <button id="download">Download</button>
+    <script type="text/javascript">
+<%= @src %>
+    </script>
+    <script>
+function submit_download_form(){
+  // Get the d3js SVG element
+  //var tmp = document.getElementById("pieChart");
+  //var svg = tmp.getElementsByTagName("svg")[0];
+  // Extract the data as SVG text string
+  //var data = (new XMLSerializer).serializeToString(svg);
+  //var encoded = encodeURIComponent(data);
+
+  // the canvg call that takes the svg xml and converts it to a canvas
+  html =  $("#pieChart").html()
+  canvg('buffer', html);
+
+  // the canvas calls to output a png
+  var canvas = document.getElementById("buffer");
+  var img = canvas.toDataURL("image/png");
+  console.log(img);
+  $("input").attr("value", img);
+
+  var form = document.getElementById("form");
+  form.submit(); 
+
+}
+
+$("#download").click(function(){ 
+  submit_download_form() 
+});
+    </script>
+  </body>
+</html>

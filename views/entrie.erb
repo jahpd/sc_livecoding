@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <body>
+    <h1><%= @title %></title>
+    <ul>
+    <% @list.each do |e| %>
+      <% unless(@entries)%>  
+      <li><a href="<%= @client %>/<%= e %>"><%= e %></a></li>
+      <% else %>
+        <% @entries.each do |ee| %>
+        <li><a href="<%= e %>/<%= ee %>"><%= e %> - <%= ee %></a></li>
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
+  </body>
+</html>
+
+

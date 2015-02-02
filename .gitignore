@@ -1,0 +1,19 @@
+// Mac windows
+.DS_Store
+
+//Emacs buffers
+*#*
+
+//Not the database
+**.yml
+
+//Not the stats
+**.tsv
+
+**.html
+**.coffee
+**.png
+**.log
+**.tex
+**.haml
+**.lock
