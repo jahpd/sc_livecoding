@@ -1,21 +1,15 @@
-require 'coffee-script'
-require 'fileutils'
-
-# https://github.com/mbostock/d3/wiki/Gallery
 module Client
-
+  
   module Script
 
-    def create(input, type, opt)
-      if(/\ / =~ input)
-        input.gsub!(/\ /, "_") 
-      end
+    module Pie
 
-      input = "#{opt[:client]}_#{input}" if opt[:client]
-
-      total = YAML.load_file("main/total_#{input}.yml")["total"]
-
-      script = """d3.tsv \"/stats/#{input}_#{type}.tsv\", (error, data) ->
+      def create_pie(input, type, opt)
+        sanitize input, opt
+        
+        total = YAML.load_file("main/total_#{input}.yml")["total"]
+        
+        script = """d3.tsv \"/stats/#{input}_#{type}.tsv\", (error, data) ->
   for d in data
     d.value = parseFloat d.value
   obj = 
@@ -69,32 +63,10 @@ module Client
 
   window.pie = new d3pie 'pieChart', obj
 """
+        compile input, type, script
+      end
 
-      path = "/tmp/#{input}_#{type}.coffee"
-      
-      File.open(path, "w+") do |f|
-        puts "Generating #{path}"
-        f.write script
-        f.close()
-      end
-      
-      js = CoffeeScript.compile(File.read(path), :bare => true)
-      delete path, "coffee"
-      js
     end
-    
-    
-    def delete(filename, ext)
-      Dir["#{File.dirname(filename)}/*.#{ext}"].each do |file|
-        next if File.basename(file) == File.basename(filename)
-        FileUtils.rm_rf file, :noop => true, :verbose => true
-      end
-    end
+  
   end
-
 end
-
-
-
-
-

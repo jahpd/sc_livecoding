@@ -1,0 +1,56 @@
+module Client
+  
+  module Script
+
+    module CirclePacking
+
+
+      def circle_packing(input, key1, key2, opt)
+        script = """diameter = 960
+format = d3.format(',d')
+
+_value = (d) -> d.size
+pack = d3.layout.pack()
+    .size([diameter - 4, diameter - 4])
+    .value(_value)
+
+svg = d3.select('body').append('svg')
+    .attr('width', diameter)
+    .attr('height', diameter)
+    .append('g')
+    .attr('transform', 'translate(2,2)')
+
+d3.json '#{input}_#{key1}_#{key2}.json', (error, root) ->
+  _clazz = (d) -> d.children ? 'node' : 'leaf node'
+  _trsl = (d) -> \"translate(\#{d.x},\#{d.y})\"
+  node = svg.datum(root).selectAll('.node')
+      .data(pack.nodes)
+      .enter().append('g')
+      .attr('class', _clazz)
+      .attr('transform', _trsl)
+
+  _text = (d) -> 
+    sufix = if d.children then '' else \": \#{format(d.size)}\"
+    \"\#{d.name}\#{sufix}\"
+
+  node.append('title')
+      .text(_text)
+
+  node.append('circle').attr('r', (d) -> d.r)
+
+  _txt = (d) -> d.name.substring(0, d.r/3)
+  node.filter((d) -> !d.children)
+      .append('text')
+      .attr('dy', '.3em')
+      .style('text-anchor', 'middle')
+      .text(_txt)
+
+d3.select(self.frameElement).style('height', \"\#{diameter}px\")
+"""
+        compile input, "#{key1}_#{key2}", script
+       
+      end
+    end
+  
+  end
+end

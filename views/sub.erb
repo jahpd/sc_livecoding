@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+  <body>
+    <h1><%= @title %></title>
+    <ul>
+    <% @list.each do |e| %>
+      <% unless(e == @sub)%>
+        <li><%= e %> Layouts:
+          <ul>
+            <% @layouts.each{|layout| %>
+              <li><a href="/<%= @client %>/<%= @entry %>/<%= @sub %>/<%= e %>?layout=<%= layout %>"><%= layout %></a></li>
+            <% } %>
+          </ul> 
+        </li> 
+      <% end %>
+    <% end %>
+    </ul>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <meta charset="utf-8">
@@ -6,11 +7,15 @@
     <h1><%= @title %></title>
     <ul>
     <% @list.each do |e| %>
-      <% unless(@entries)%>  
+      <% unless(@entries)%>
+      <% e.gsub!(/\ /, "_") %>
       <li><a href="<%= @client %>/<%= e %>"><%= e %></a></li>
       <% else %>
         <% @entries.each do |ee| %>
-        <li><a href="<%= e %>/<%= ee %>"><%= e %> - <%= ee %></a></li>
+        
+        <li>
+          <a href="<%= e %>/<%= ee %>"><%= e %> - <%= ee %></a>
+        </li>
         <% end %>
       <% end %>
     <% end %>

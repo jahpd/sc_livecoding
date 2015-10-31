@@ -1,0 +1,33 @@
+require "json"
+
+module D3
+  
+  module JSON
+
+    def treemap_json(input, key1, key2)
+      
+      puts " => Getting data from #{input}.yml"
+      puts " => Comparing keys: #{key1} and #{key2}"
+      _obj = nil
+      load input do |obj|
+        _obj = obj
+      end
+
+      path = File.dirname(__FILE__)
+      p = "#{input}_#{key1}_#{key2}"
+      path = File.expand_path "#{path}/../../public/stats/#{p}.json"
+      puts " => Generating #{path}"
+      
+      tree = build_treemap input, _obj, key1, key2
+
+      puts "=> Current Tree"
+      puts tree
+      File.open(path, "w+") do |f|
+        f.write tree.to_json
+        f.close()
+      end 
+    end
+
+  end
+  
+end

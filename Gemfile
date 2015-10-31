@@ -1,12 +1,16 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 ruby '2.1.2'
+
 gem 'soundcloud'
 gem 'json'
 gem 'coffee-script'
-gem 'haml'
-gem 'rack-timeout'
 gem 'octokit'
 gem 'ruby-progressbar'
-gem 'svg-to-eps'
-
+gem 'mongo'
+gem 'mongodb'
+gem 'bson_ext'
+gem 'histogram'
+gem 'rspec'
+gem 'spec'
+gem 'nokogiri'

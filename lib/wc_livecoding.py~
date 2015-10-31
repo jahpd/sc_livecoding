@@ -1,0 +1,32 @@
+from os import path
+from wordcloud import WordCloud
+import math
+import nltk
+
+def getLists():
+    d = path.dirname(__file__)
+
+    # Read the whole text.
+    text = open(path.join(d, 'iclc2015_proceedings.txt'))
+
+    # Generate a word cloud image
+    #wordcloud = WordCloud().generate(text)
+    return nltk.word_tokenize(text)
+    
+
+    # Generate semi-quantitivite regions
+    #d = {}
+    #for i in range(0,11):
+    #    d[str(i)] = []
+    #    for el in wordcloud.words_:
+    #        if el[1] > i/10.0 and el[1] <= (i+1)/10.0:
+    #            if len(el[0]) > 1:
+    #                d[str(i)].append(el[0])
+#
+     #   tagged = nltk.pos_tag(d[str(i)])
+     #   a = [ for s in d[str(i)]
+
+    
+    #return d
+
+print getLists()
